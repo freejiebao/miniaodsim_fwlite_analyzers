@@ -20,6 +20,7 @@ for event in events:
     if event.eventAuxiliary().event() != 47397533:
         continue
 
+    #it is explained in https://sft.its.cern.ch/jira/browse/ROOT-5041 why there is a "[?1034h" at the beginning of the output when it is piped into a file
     print "run %6d, lumi %4d, event %12d" % (event.eventAuxiliary().run(), event.eventAuxiliary().luminosityBlock(),event.eventAuxiliary().event())
     
     print "\npacked\n"	    
