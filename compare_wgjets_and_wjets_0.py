@@ -113,8 +113,8 @@ for event in events_wgjets:
     if nphotons != 1:
         continue
 
-#    if deltaR(electron.eta(), electron.phi(), photon.eta(), photon.phi()) < 0.5:
-#        continue
+    if deltaR(electron.eta(), electron.phi(), photon.eta(), photon.phi()) < 0.5:
+        continue
 
     njets = 0        
 
@@ -208,8 +208,8 @@ for event in events_wjets:
     if nphotons != 1:
         continue
 
-#    if deltaR(electron.eta(), electron.phi(), photon.eta(), photon.phi()) < 0.5:
-#        continue
+    if deltaR(electron.eta(), electron.phi(), photon.eta(), photon.phi()) < 0.5:
+        continue
 
     njets = 0        
 
@@ -246,21 +246,21 @@ th1f_wjets_photon_pt.SetLineColor(ROOT.kBlue)
 th1f_wjets_lepton_pt.SetLineColor(ROOT.kBlue)
 th1f_wjets_delta_r.SetLineColor(ROOT.kBlue)
 
-if th1f_wjets_delta_r.GetMaximum() > th1f_wgjets_delta_r.GetMaximum():
-    th1f_wjets_delta_r.Draw()
-    th1f_wjets_delta_r.GetXaxis().SetTitle("#Delta R(l,g)")
-    th1f_wjets_delta_r.SetStats(0)
-    th1f_wgjets_delta_r.Draw("same")
+if th1f_wjets_lepton_pt.GetMaximum() > th1f_wgjets_lepton_pt.GetMaximum():
+    th1f_wjets_lepton_pt.Draw()
+    th1f_wjets_lepton_pt.GetXaxis().SetTitle("lepton pt (GeV)")
+    th1f_wjets_lepton_pt.SetStats(0)
+    th1f_wgjets_lepton_pt.Draw("same")
 else:
-    th1f_wgjets_delta_r.Draw()
-    th1f_wgjets_delta_r.GetXaxis().SetTitle("#Delta R(l,g)")
-    th1f_wgjets_delta_r.SetStats(0)
-    th1f_wjets_delta_r.Draw("same")
+    th1f_wgjets_lepton_pt.Draw()
+    th1f_wgjets_lepton_pt.GetXaxis().SetTitle("lepton pt (GeV)")
+    th1f_wgjets_lepton_pt.SetStats(0)
+    th1f_wjets_lepton_pt.Draw("same")
 
 leg=ROOT.TLegend(.50,.65,.80,.80)
 
-leg.AddEntry(th1f_wjets_delta_r,"w+jets","l")
-leg.AddEntry(th1f_wgjets_delta_r,"wg+jets","l")
+leg.AddEntry(th1f_wjets_lepton_pt,"w+jets","l")
+leg.AddEntry(th1f_wgjets_lepton_pt,"wg+jets","l")
 
 leg.Draw("same")
 
