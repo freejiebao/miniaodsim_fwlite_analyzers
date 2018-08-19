@@ -125,8 +125,8 @@ for event in events_wgjets:
     if nphotons != 1:
         continue
 
-#    if deltaR(electron.eta(), electron.phi(), photon.eta(), photon.phi()) < 0.5:
-#        continue
+    if deltaR(electron.eta(), electron.phi(), photon.eta(), photon.phi()) < 0.5:
+       continue
 
     njets = 0
 
@@ -234,8 +234,8 @@ for event in events_wgmlm:
     if nphotons != 1:
         continue
 
-#    if deltaR(electron.eta(), electron.phi(), photon.eta(), photon.phi()) < 0.5:
-#        continue
+    if deltaR(electron.eta(), electron.phi(), photon.eta(), photon.phi()) < 0.5:
+        continue
 
     njets = 0
 
