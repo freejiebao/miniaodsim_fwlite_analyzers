@@ -132,8 +132,9 @@ for event in events_wgjets:
 
     for p in pruned :
 
-#        if (abs(p.pdgId()) == 1 or abs(p.pdgId()) == 2 or abs(p.pdgId()) == 3 or abs(p.pdgId()) == 4 or abs(p.pdgId()) == 5 or abs(p.pdgId()) == 21) and p.pt() > 30 and p.statusFlags().isPrompt() and p.statusFlags().isLastCopy()  :
-        if (abs(p.pdgId()) == 1 or abs(p.pdgId()) == 2) and p.pt() > 30 and p.statusFlags().isPrompt() and p.statusFlags().isLastCopy()  :
+        if (abs(p.pdgId()) == 1 or abs(p.pdgId()) == 2 or abs(p.pdgId()) == 3 or abs(p.pdgId()) == 4 or abs(p.pdgId()) == 5 or abs(p.pdgId()) == 21) and p.pt() > 30 and p.statusFlags().isPrompt() and p.statusFlags().isLastCopy()  :
+            if deltaR(electron.eta(),electron.phi(),p.eta(),p.phi()) < 0.5 or deltaR(photon.eta(),photon.phi(),p.eta(),p.phi()) < 0.5 or abs(p.eta())>4.7:
+                continue
             njets +=1
 
     if gen.weight() > 0:
@@ -158,6 +159,7 @@ c1 = ROOT.TCanvas()
 c2 = ROOT.TCanvas()
 c3 = ROOT.TCanvas()
 c4 = ROOT.TCanvas()
+c5 = ROOT.TCanvas()
 
 th1f_wgjets_njets.Scale(xs_wgjets*1000*36/countweighted)
 th1f_wgjets_photon_pt.Scale(xs_wgjets*1000*36/countweighted)
@@ -241,8 +243,10 @@ for event in events_wgmlm:
 
     for p in pruned :
 
-#        if (abs(p.pdgId()) == 1 or abs(p.pdgId()) == 2 or abs(p.pdgId()) == 3 or abs(p.pdgId()) == 4 or abs(p.pdgId()) == 5 or abs(p.pdgId()) == 21) and p.pt() > 30 and p.statusFlags().isPrompt() and p.statusFlags().isLastCopy()  :
-        if (abs(p.pdgId()) == 1 or abs(p.pdgId()) == 2) and p.pt() > 30 and p.statusFlags().isPrompt() and p.statusFlags().isLastCopy()  :
+        if (abs(p.pdgId()) == 1 or abs(p.pdgId()) == 2 or abs(p.pdgId()) == 3 or abs(p.pdgId()) == 4 or abs(p.pdgId()) == 5 or abs(p.pdgId()) == 21) and p.pt() > 30 and p.statusFlags().isPrompt() and p.statusFlags().isLastCopy()  :
+#        if (abs(p.pdgId()) == 1 or abs(p.pdgId()) == 2) and p.pt() > 30 and p.statusFlags().isPrompt() and p.statusFlags().isLastCopy()  :
+            if deltaR(electron.eta(),electron.phi(),p.eta(),p.phi()) < 0.5 or deltaR(photon.eta(),photon.phi(),p.eta(),p.phi()) < 0.5 or abs(p.eta())>4.7:
+		        continue
             njets +=1
 
     if gen.weight() > 0:
@@ -371,6 +375,26 @@ leg4.AddEntry(th1f_wgmlm_delta_r,"wgmlm","l")
 
 leg4.Draw("same")
 c4.SaveAs("/eos/user/j/jixiao/wgjets_wgmlm/dr.png")
+
+c5.cd()
+if th1f_wgmlm_njets.GetMaximum() > th1f_wgjets_njets.GetMaximum():
+    th1f_wgmlm_njets.Draw()
+    th1f_wgmlm_njets.GetXaxis().SetTitle("njets")
+    th1f_wgmlm_njets.SetStats(0)
+    th1f_wgjets_njets.Draw("same")
+else:
+    th1f_wgjets_njets.Draw()
+    th1f_wgjets_njets.GetXaxis().SetTitle("njets")
+    th1f_wgjets_njets.SetStats(0)
+    th1f_wgmlm_njets.Draw("same")
+
+leg5=ROOT.TLegend(.65,.80,.95,.95)
+
+leg5.AddEntry(th1f_wgjets_njets,"wgjets","l")
+leg5.AddEntry(th1f_wgmlm_njets,"wgmlm","l")
+
+leg5.Draw("same")
+c5.SaveAs("/eos/user/j/jixiao/wgjets_wgmlm/njets.png")
 '''
 c1.cd()
 if th1f_wgmlm_lepton_pt.GetMaximum() > th1f_wgjets_lepton_pt.GetMaximum():
